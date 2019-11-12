@@ -1,0 +1,24 @@
+.Square {
+    width: 12.5%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.Square.white {
+    background-color: white;
+    background-image: url(/images/marble.jpg);
+}
+
+.Square.black {
+    background-color: black;
+    background-image: url(/images/dark-wood.jpg);
+}
+
+.Square img {
+    width: 50%;
+}

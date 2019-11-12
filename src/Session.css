@@ -1,0 +1,40 @@
+.Session {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 120%;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: 150ms;
+}
+
+.Session:first-child {
+    margin-top: 10px;
+}
+
+.Session .title {
+    transition: 250ms;
+}
+
+.Session:hover {
+    border-top-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+#SessionsPanel .Session .icon.danger {
+    font-size: 50%;
+    padding: 5.1px 12px;
+    background-color: #ff8c1a;
+}
+
+#SessionsPanel .Session .icon:last-of-type {
+    margin-right: 20px;
+}
+
+#SessionsPanel .Session .number-of-moves {
+    opacity: 0.5;
+    padding-left: 20px;
+    font-size: 80%;
+    position: relative;
+    top: 2px;
+}

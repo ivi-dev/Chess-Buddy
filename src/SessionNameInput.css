@@ -1,0 +1,112 @@
+#SessionNameInput {
+    position: absolute;
+    right: -100%;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid gold;
+    border-bottom: 2px solid gold;
+    box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.7) inset;
+    color: black;
+    background-color: rgba(0, 0, 0, 1);
+    background-image: url(/images/paper.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'McLaren', cursive;
+    transition: 500ms;
+}
+
+#SessionNameInput.visible {
+    right: 0;
+}
+
+#SessionNameInput #SessionNameInputButtons {
+    padding: 20px 20px 20px;
+}
+
+#SessionNameInput #SessionNameInputButtons .button {
+    background-color: gold;
+    border: none;
+    border-radius: 5px;
+    font-size: 100%;
+    padding: 8px 10px;
+    cursor: pointer;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.6);
+    transition: 50ms;
+}
+
+#SessionNameInput #SessionNameInputButtons .button:active {
+    background-color: rgba(51, 204, 255, 0.8);
+}
+
+#SessionNameInput form {
+    padding: 20px;
+}
+
+#SessionNameInput form label {
+    display: flex;
+    flex-flow: column;
+    margin-top: 30px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#SessionNameInput form label:first-child {
+    margin-top: 10px;
+}
+
+#SessionNameInput form input[type=text]::selection, #SessionNameInput form textarea::selection {
+    background-color: gold !important;
+}
+
+
+#SessionNameInput form input[type=text], #SessionNameInput form textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px groove rgba(0, 0, 0, 0.4);
+    font-size: 120%;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#SessionNameInput form textarea {
+    resize: none;
+    height: 150px;
+}
+
+#SessionNameInput form #buttons {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+#SessionNameInput form textarea:focus, #SessionNameInput form input[type=text]:focus {
+    outline: none;
+}
+
+#SessionNameInput form input[type=submit], #SessionNameInput form button {
+    display: block;
+    background-color: gold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 40px;
+    cursor: pointer;
+    font-size: 90%;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.6);
+    transition: 50ms;
+}
+
+#SessionNameInput form input[type=submit] {
+    margin-right: 20px;
+}
+
+#SessionNameInput form button {
+    padding: 10px 20px;
+}
+
+#SessionNameInput form input[type=submit]:active, #SessionNameInput form button:active {
+    background-color: rgba(51, 204, 255, 0.8);
+}
+
+#SessionNameInput form #dbError {
+    padding-top: 10px;
+    color: red;
+}

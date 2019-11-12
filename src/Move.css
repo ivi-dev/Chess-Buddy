@@ -1,0 +1,41 @@
+.Move {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 250ms;
+}
+
+.Move:hover {
+    background-color: rgba(51, 204, 255, 0.2);
+}
+
+.Move.selected {
+    background-color: gold;
+    color: rgba(0, 0, 0, 1);
+}
+
+.Move.faded {
+    opacity: 0.2;
+}
+
+.Move .TurnId {
+    opacity: 0.5;
+}
+
+.Move .Side {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0 10px;
+}
+
+.Move .Side.Whites {
+    background-color: white;
+}
+
+.Move .Side.Blacks {
+    background-color: black;
+}

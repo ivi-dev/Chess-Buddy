@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Indie+Flower|McLaren&display=swap');
+
+#SessionsPanel {
+    position: absolute;
+    right: -100%;
+    bottom: 0;
+    height: 90%;
+    width: 100%;
+    border-top: 2px solid gold;
+    border-bottom: 2px solid gold;
+    box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.7) inset;
+    color: black;
+    background-color: rgba(0, 0, 0, 1);
+    background-image: url(/images/paper.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'McLaren', cursive;
+    transition: 500ms;
+}
+
+#SessionsPanel.visible {
+    right: 0;
+}
+
+#SessionsPanel #SessionsPanelButtons {
+    padding: 20px 20px 0;
+}
+
+#SessionsPanel #SessionsPanelButtons .button {
+    background-color: gold;
+    border: none;
+    border-radius: 5px;
+    font-size: 100%;
+    padding: 8px 10px;
+    cursor: pointer;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.6);
+    transition: 50ms;
+}
+
+#SessionsPanel #SessionsPanelButtons .button:active {
+    background-color: rgba(51, 204, 255, 0.8);
+}
+
+#SessionsPanel #SessionsList {
+    max-height: 80%;
+    overflow: scroll;
+    padding-top: 20px;
+    border-top: 1px solid rgba;
+}
+
+#SessionsPanel .icon {
+    background-color: gold;
+    border: none;
+    border-radius: 5px;
+    font-size: 40%;
+    width: 15px;
+    padding: 6px 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.6);
+    margin-right: 10px;
+    transition: 50ms;
+}
+
+#SessionsPanel .icon:active {
+    background-color: rgba(51, 204, 255, 0.8);
+}
+
+#SessionsPanel #no-sessions {
+    text-align: center;
+    margin-top: 100px;
+}
+

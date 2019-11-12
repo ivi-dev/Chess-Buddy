@@ -1,0 +1,37 @@
+#Input {
+    padding: 20px 10px 0 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+#Input textarea::selection {
+    background-color: gold !important;
+}
+
+#Input textarea {
+    background-color: transparent;
+    border: none;
+    font-size: 120%;
+    color: rgba(255, 255, 255, 0.8);
+    resize: none;
+    height: 150px;
+}
+
+#Input textarea:focus {
+    outline: none;
+}
+
+#Input input[type=submit] {
+    background-color: gold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 90%;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.6);
+    transition: 50ms;
+}
+
+#Input input[type=submit]:active {
+    background-color: rgba(51, 204, 255, 0.8);
+}

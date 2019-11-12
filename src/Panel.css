@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Indie+Flower&display=swap');
+
+#Panel {
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 1), 0 4px 8px 0px rgba(0, 0, 0, 0.7) inset;
+    border: 2px solid gold;
+    border-radius: 5px;
+    background-image: url(/images/chalk-board-2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    max-height: 700px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'McLaren', cursive;
+}
+
+#Panel #Error {
+    color: orange;
+    padding: 0 0 0 20px;
+    font-weight: 300;
+}
+
+#Panel h3 {
+    color: rgba(255, 255, 255, 1);
+    padding: 0 20px;
+    font-weight: 200;
+}
+
+#Panel hr {
+    margin: -10px 20px 20px 20px;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.8);;
+}
+
+::selection {
+    background-color: transparent;
+}
