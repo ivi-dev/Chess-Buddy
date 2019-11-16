@@ -4,7 +4,7 @@ import './Square.css';
 function Square(props) {
     return (
         <div className={`Square ${props.color}`}>
-            { props.piece && <img src={`/images/pieces/${props.piece}.png`} alt={props.piece} />}
+            {props.piece && <img src={`/images/pieces/${props.piece}.png`} alt={props.piece} />}
         </div>
     );
 }

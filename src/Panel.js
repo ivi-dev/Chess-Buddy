@@ -42,6 +42,8 @@ class Panel extends React.Component {
 
     componentDidMount() {
         this.db = new Database();
+        this.db.configure(() => {console.log(`DB_EVENT::There was a change in the local database. Something was inserted, removed or updated.`)},
+                          () => {console.log('DB_EVENT::There was an error during a database operation.');});
         this.updateSessionsList();
     }
 

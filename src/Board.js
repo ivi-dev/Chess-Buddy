@@ -48,10 +48,9 @@ class Board extends React.Component {
     }
 
     render() {
-        this.getRanks();
         return (
             <div id="Board">
-                <div className="Content">
+                <div id="Content">
                     {this.props.situation.map((row, id) => <Row key={id} row={row} />)}
                 </div>
                 <div id="FileStrip" className="strip">

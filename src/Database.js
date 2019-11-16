@@ -3,13 +3,16 @@ import PouchDB from 'pouchdb-browser';
 class Database {
     constructor(dbName = 'chess-moves-parser') {
         this.db = new PouchDB(dbName, {auto_compaction: true});
+    }
+
+    configure(onChange, onError) {
         this.db.changes({
             live: true,
             since: 'now'
         }).on('change', function (change) {
-            console.log(`DB_EVENT::There was a change in the local database. Something was inserted, removed or updated.`);
+            onChange();
         }).on('error', function (err) {
-            console.log('DB_EVENT::There was an error during a database operation.');
+            onError();
         });
     }
 
@@ -18,7 +21,6 @@ class Database {
             successCallback(response);
         }).catch(function (err) {
             if (errorCallback) errorCallback(err); 
-            // else console.log('There was an error while trying to insert a record into the database', err);
         });
     }
 
@@ -27,7 +29,6 @@ class Database {
             successCallback(response);
         }).catch(function (err) {
             if (errorCallback) errorCallback(err); 
-            // else console.log('There was an error while trying to insert a record into the database', err);
         });
     }
 
@@ -39,7 +40,6 @@ class Database {
             successCallback(res);
         }).catch(function (err) {
             if (errorCallback) errorCallback(err); 
-            // else console.log('There was an error while trying to insert a record into the database', err);
         });
     }
 }
