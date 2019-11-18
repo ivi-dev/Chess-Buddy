@@ -1,17 +1,17 @@
 import React from 'react';
-import './Input.css';
+import './NotationsInput.css';
 
 
-function Input(props) {
+function NotationsInput(props) {
     return (
         <form id="Input" onSubmit={props.parseNotationsList}> 
             <textarea placeholder="Place notations here..." 
-                      value={props.notationsList} 
-                      onChange={props.updateNotationsList} 
+                      value={props.notations} 
+                      onChange={props.updateNotations} 
                       autoCorrect="false" spellCheck="false" />
             <input type="submit" value="Parse" />
         </form>
     );
 }
 
-export default Input;
+export default NotationsInput;

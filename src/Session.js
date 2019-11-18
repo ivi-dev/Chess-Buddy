@@ -7,11 +7,10 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 function Session(props) {
     return (
         <div className="Session">
-            <FontAwesomeIcon icon={faPlay} className="icon" onClick={() => {props.hideSessionsPanel(); 
-                                                                            props.updateMoves(props.moves); 
-                                                                            props.loadSessionFromArchive(props.movesHistory, props.moves)}} />
-            <FontAwesomeIcon icon={faTrash} className="icon danger" onClick={() => props.deleteSession(props.title)} /> 
-            <span className={"title"}>{props.title}</span> {props.moves && <span className="number-of-moves">[{props.moves.length} moves]</span>}
+            <FontAwesomeIcon icon={faPlay} className="icon" onClick={() => {props.updateMoves(props.session.moves); 
+                                                                            props.loadSessionFromArchive(props.session.movesHistory, props.session.moves)}} />
+            <FontAwesomeIcon icon={faTrash} className="icon danger" onClick={() => props.deleteSession(props.session.title)} /> 
+            <span className="title">{props.session.title}</span> {props.session.moves && <span className="number-of-moves">[{props.session.moves.length} moves]</span>}
         </div>
     );
 }

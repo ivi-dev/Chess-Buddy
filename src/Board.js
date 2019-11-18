@@ -5,24 +5,18 @@ import './Board.css';
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        }
-    }
-
-    componentDidMount() {
         this.setBoard();
     }
 
     setBoard() {
         let hCoordinate = -1, color = 1, situation = [];
-        for (let index = 0; index < this.props.board.dimensions.height; index++) {
+        for (let index = 0; index < this.props.board.vCoordinates.length; index++) {
             let row = [], vCoordinate = -1; hCoordinate++;
-            for (let index = 0; index < this.props.board.dimensions.width; index++) {
+            for (let index = 0; index < this.props.board.hCoordinates.length; index++) {
                 vCoordinate++; 
                 const coordinate = `${this.props.board.vCoordinates[vCoordinate]}${this.props.board.hCoordinates[hCoordinate]}`
                 row.push({coordinates: coordinate, color: color, piece: this.props.initialSet[this.props.initialSetType][coordinate]}); 
-                if (index !== this.props.board.dimensions.width - 1) 
+                if (index !== this.props.board.hCoordinates.length - 1) 
                     if (color === 1) color = 0; 
                     else color = 1;
             }

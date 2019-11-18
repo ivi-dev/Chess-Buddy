@@ -15,18 +15,18 @@ class SessionsPanel extends React.Component {
             <section id="SessionsPanel" className={this.props.visible ? 'visible' : null}>
                 <section id="SessionsList">
                     {this.props.sessions.length > 0 && this.props.sessions.map(session => <Session key={session.id} 
-                                                                                                   title={session.title} 
-                                                                                                   moves={session.moves} 
-                                                                                                   movesHistory={session.movesHistory} 
+
+                                                                                                   session={session}
+
                                                                                                    updateMoves={this.props.updateMoves}
                                                                                                    loadSessionFromArchive={this.props.loadSessionFromArchive} 
-                                                                                                   hideSessionsPanel={this.props.hideSessionsPanel}
+                                                                                                   toggleSessionsPanel={this.props.toggleSessionsPanel}
                                                                                                    deleteSession={this.props.deleteSession}
                                                                                                    confirm={this.props.confirm} />)}
                     {this.props.sessions.length === 0 && <div id="no-sessions">No stored sessions</div>}
                 </section>
                 <section id="Buttons">
-                    <button className="button" onClick={this.props.hideSessionsPanel}>Back</button>
+                    <button className="button" onClick={this.props.toggleSessionsPanel}>Back</button>
                 </section>
             </section>
         );

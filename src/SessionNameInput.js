@@ -16,7 +16,7 @@ function SaveSessionsPanel(props) {
                 {props.dbError && <section id="dbError">{props.dbError}</section>}
                 <section id="buttons">
                     <input type="submit" value="Save" onClick={props.saveSession} />
-                    <button className="button" onClick={props.hideSaveSessionInput}>Back</button>
+                    <button className="button" onClick={props.toggleSaveSessionPanel}>Back</button>
                 </section>
             </form>
         </section>

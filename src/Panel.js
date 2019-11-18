@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './Input'
+import NotationsInput from './NotationsInput'
 import Buttons from './Buttons'
 import SessionNameInput from './SessionNameInput'
 import SessionsPanel from './SessionsPanel'
@@ -10,27 +10,29 @@ import Database from './Database';
 class Panel extends React.Component {
     constructor(props) {
         super(props);
-        this.notationMinLength = 5;
-        this.notationMaxLength = 5;
+        this.notationParams ={
+            notationMinLength: 5,
+            notationMaxLength: 5
+        }
         this.db = null;
         this.state = {
             moves: [],
-            notationsList: '',
-            error: '',
+            notations: '',
+            notaitionsError: '',
             dbError: '',
-            sessionsPanelVisible: false,
-            saveSessionInputVisible: false,
-            sessions: [{id: 1, title: 'Session'}, {id: 2, title: 'Session'}, {id: 3, title: 'Session'}],
+            panels: {
+                sessionsPanel: {visible: false},
+                saveSessionPanel: {visible: false}
+            },
+            sessions: [],
             sessionName: '',
             sessionNotes: '',
             confirm: true
         }
-        this.updateNotationsList = this.updateNotationsList.bind(this);
+        this.updateNotations = this.updateNotations.bind(this);
         this.parseNotationsList = this.parseNotationsList.bind(this);
-        this.openSessionsPanel = this.openSessionsPanel.bind(this);
-        this.hideSessionsPanel = this.hideSessionsPanel.bind(this);
-        this.openSaveSessionInput = this.openSaveSessionInput.bind(this);
-        this.hideSaveSessionInput = this.hideSaveSessionInput.bind(this);
+        this.toggleSessionsPanel = this.toggleSessionsPanel.bind(this);
+        this.toggleSaveSessionPanel = this.toggleSaveSessionPanel.bind(this);
         this.updateSessionName = this.updateSessionName.bind(this);
         this.updateSessionNotes = this.updateSessionNotes.bind(this);
         this.fadeOutMoves = this.fadeOutMoves.bind(this);
@@ -41,19 +43,21 @@ class Panel extends React.Component {
     }
 
     componentDidMount() {
-        this.db = new Database();
-        this.db.configure(() => {console.log(`DB_EVENT::There was a change in the local database. Something was inserted, removed or updated.`)},
-                          () => {console.log('DB_EVENT::There was an error during a database operation.');});
-        this.updateSessionsList();
+        if (!this.props.testRun) {
+            this.db = new Database();
+            this.db.configure(() => {console.log(`DB_EVENT::There was a change in the local database. Something was inserted, removed or updated.`)},
+                            () => {console.log('DB_EVENT::There was an error during a database operation.');});
+            this.updateSessionsList();
+        }
     }
 
-    updateNotationsList(event) {
-        this.setState({error: ''});
-        this.setState({notationsList: event.target.value});
+    updateNotations(event) {
+        this.setState({notaitionsError: ''});
+        this.setState({notations: event.target.value});
     }
 
     validateNotation(notation) {
-        const minLength = this.notationMinLength, maxLength = this.notationMaxLength;
+        const minLength = this.notationParams.notationMinLength, maxLength = this.notationParams.notationMaxLength;
         function checkLength() {
             return notation.length >= minLength && notation.length <= maxLength;
         }
@@ -86,13 +90,13 @@ class Panel extends React.Component {
 
     parseNotationsList(event) {
         event.preventDefault();
-        if (this.state.notationsList.length > 0) {
-            const notations = this.state.notationsList.trim().split(/\n/);
+        if (this.state.notations.length > 0) {
+            const notations = this.state.notations.trim().split(/\n/);
             let allNotationsValid = true;
             for (let notation of notations)
                 if (!this.validateNotation(notation.replace(/\s*/g, ''))) {
                     allNotationsValid = false;
-                    this.setState({error: `Invalid notation: '${notation}'`});
+                    this.setState({notaitionsError: `Invalid notation: '${notation}'`});
                     break;
                 }
             if (allNotationsValid) {
@@ -111,16 +115,8 @@ class Panel extends React.Component {
                 this.setState({moves: moves}, () => this.setState({notationsList: ''}));
             }
         } else {
-            this.setState({error: 'Nothing to parse.'});
+            this.setState({notaitionsError: 'Nothing to parse.'});
         }
-    }
-
-    openSessionsPanel() {
-        this.setState({sessionsPanelVisible: true});
-    }
-
-    hideSessionsPanel() {
-        this.setState({sessionsPanelVisible: false});
     }
 
     fadeOutMoves(upwardsFromMove) {
@@ -140,13 +136,13 @@ class Panel extends React.Component {
         });
     }
 
-    openSaveSessionInput() {
-        this.setState({saveSessionInputVisible: true});
+    toggleSaveSessionPanel(event) {
+        event.preventDefault();
+        this.setState(state => ({panels: {...state.panels, saveSessionPanel: {visible: !state.panels.saveSessionPanel.visible}}, dbError: ''}));
     }
 
-    hideSaveSessionInput(event) {
-        if (event) event.preventDefault();
-        this.setState({saveSessionInputVisible: false, sessionName: '' , sessionNotes: ''});
+    toggleSessionsPanel() {
+        this.setState(state => ({panels: {...state.panels, sessionsPanel: {visible: !state.panels.sessionsPanel.visible}}}));
     }
 
     updateSessionName(event) {
@@ -167,6 +163,10 @@ class Panel extends React.Component {
 
     saveSession(event) {
         event.preventDefault();
+        if (!this.state.sessionName.trim()) {
+            this.setState({dbError: 'Please, give your session a name first.'});
+            return;
+        }
         this.db.insert({id: this.getLatestSessionId() + 1, 
                         _id: this.state.sessionName, 
                         notes: this.state.sessionNotes, 
@@ -175,7 +175,7 @@ class Panel extends React.Component {
                         moves_history: this.props.movesHistory,
                         date_saved: Date()},
                         () => {
-                            this.setState({sessionName: '', sessionNotes: ''}, () => this.hideSaveSessionInput()); 
+                            this.setState({sessionName: '', sessionNotes: ''}, () => this.toggleSaveSessionPanel()); 
                             this.updateSessionsList()
                         }, (err) => {
                             if (err.message === 'Document update conflict' && err.status === 409) 
@@ -200,7 +200,7 @@ class Panel extends React.Component {
     }
 
     updateMoves(moves) {
-        this.setState({moves: moves});
+        this.setState({moves: moves, panels: {sessionsPanel: {visible: false}}});
     }
 
     deleteSession(title) {
@@ -210,26 +210,30 @@ class Panel extends React.Component {
     render() {
         return (
             <aside id="Panel">
-                <Input notationsList={this.state.notationsList} updateNotationsList={this.updateNotationsList} 
-                       parseNotationsList={this.parseNotationsList} />
-                {this.state.error && <div id="Error">{this.state.error}</div>}
-                <h3>{this.state.moves.length !== 0 && 'Session History'}</h3>
-                {this.state.error && <hr />}
-                <MovesHistory moves={this.state.moves} side={this.props.side} 
+                <NotationsInput notations={this.state.notations} 
+                                updateNotations={this.updateNotations} 
+                                parseNotationsList={this.parseNotationsList} />
+                {this.state.notaitionsError && <div id="Error">{this.state.notaitionsError}</div>}
+                {this.state.moves.length !== 0 && <h3>Session History</h3>}
+                <MovesHistory moves={this.state.moves} 
+                              side={this.props.side} 
                               updateSituationByMoveId={this.props.updateSituationByMoveId} 
                               fadeOutMoves={this.fadeOutMoves} 
                               resetMovesFade={this.resetMovesFade} />
-                <Buttons openSessionsPanel={this.openSessionsPanel} openSaveSessionInput={this.openSaveSessionInput} moves={this.state.moves} />
-                <SessionNameInput visible={this.state.saveSessionInputVisible} hideSaveSessionInput={this.hideSaveSessionInput} 
+                <Buttons toggleSessionsPanel={this.toggleSessionsPanel} 
+                         toggleSaveSessionPanel={this.toggleSaveSessionPanel} 
+                         moves={this.state.moves} />
+                <SessionNameInput visible={this.state.panels.saveSessionPanel.visible} 
+                                  toggleSaveSessionPanel={this.toggleSaveSessionPanel} 
                                   sessionName={this.state.sessionName} 
                                   sessionNotes={this.state.sessionNotes} 
                                   updateSessionName={this.updateSessionName} 
                                   updateSessionNotes={this.updateSessionNotes} 
                                   saveSession={this.saveSession}
                                   dbError={this.state.dbError} />
-                <SessionsPanel visible={this.state.sessionsPanelVisible} 
+                <SessionsPanel visible={this.state.panels.sessionsPanel.visible} 
                                sessions={this.state.sessions} 
-                               hideSessionsPanel={this.hideSessionsPanel} 
+                               toggleSessionsPanel={this.toggleSessionsPanel} 
                                loadSessionFromArchive={this.props.loadSessionFromArchive} 
                                updateMoves={this.updateMoves} 
                                deleteSession={this.deleteSession}

@@ -49,7 +49,11 @@ class MovesHistory extends React.Component {
         return (
             <section id="MovesHistory">
                 <KeyboardEventHandler handleKeys={['up', 'down']} onKeyEvent={key => this.cycleMoves(key)} />
-                {this.props.moves.map(move => <Move key={move.id} notation={move.notation} id={move.id} side={move.side} situation={move.situation} 
+                {this.props.moves.map(move => <Move key={move.id} 
+                                                    notation={move.notation} 
+                                                    id={move.id} 
+                                                    side={move.side} 
+                                                    situation={move.situation} 
                                                     faded={move.faded}
                                                     selectMove={this.selectMove}
                                                     selected={this.state.selectedMove === move.id ? true : false} />)}

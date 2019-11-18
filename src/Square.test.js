@@ -5,30 +5,34 @@ import Square from './Square';
 
 configure({ adapter: new Adapter() });
 
-let square;
-let color = 0;
-let piece = 'white-rook';
+let squareData = {color: 1, piece: 'white-rook'};
+let square = shallow(<Square square={squareData} />);
 
-describe('Square', () => {
-    test('Remders .Square.black with a piece on it', () => {
-        square = shallow(<Square color={color} piece={piece} />);
-        expect(square.find('.Square.black')).toBeTruthy();
-    });
-
-    test('Remders .Square.white with a piece on it', () => {
-        color = 1;
-        square = shallow(<Square color={color} piece={piece} />);
-        expect(square.find('.Square.white')).toBeTruthy();
-    });
-
-    test('Remders .Square.black without a piece on it', () => {
-        color = 0;
-        square = shallow(<Square color={color} piece={null} />);
-        expect(square.find('.Square.black')).toBeTruthy();
-    });
-
-    test('Remders .Square.white without a piece on it', () => {
-        square.setProps({color: 1});
-        expect(square.find('.Square.white')).toBeTruthy();
-    });
+test('Renders .Square.white with a piece on it', () => {
+    expect(square.find('.Square.white').length).toBe(1);
+    expect(square.find('.Square.white img').length).toBe(1);
 });
+
+test('Renders .Square.black with a piece on it', () => {
+    squareData.color = 0;
+    square = shallow(<Square square={squareData} />);
+    expect(square.find('.Square.black').length).toBe(1);
+    expect(square.find('.Square.black img').length).toBe(1);
+});
+
+test('Renders .Square.white without a piece on it', () => {
+    squareData.color = 1;
+    squareData.piece = null;
+    square = shallow(<Square square={squareData} />);
+    expect(square.find('.Square.white').length).toBe(1);
+    expect(square.find('.Square.white img').length).toBe(0);
+});
+
+test('Renders .Square.black without a piece on it', () => {
+    squareData.color = 0;
+    squareData.piece = null;
+    square = shallow(<Square square={squareData} />);
+    expect(square.find('.Square.black').length).toBe(1);
+    expect(square.find('.Square.black img').length).toBe(0);
+});
+

@@ -9,16 +9,15 @@ class App extends React.Component {
     this.board = {
       vCoordinates: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
       hCoordinates: ['1', '2', '3', '4', '5', '6', '7', '8'],
-      dimensions: { width: 8, height: 8 }
-    }
-    this.turnMap = {'Whites': 'white-', 'Blacks': 'black-'}
-    this.piecesMap = {
-      'R': 'rook',
-      'N': 'knight',
-      'B': 'bishop',
-      'K': 'king',
-      'Q': 'queen',
-      'P': 'pawn'
+      turnMap: {'Whites': 'white-', 'Blacks': 'black-'},
+      piecesMap: {
+        'R': 'rook',
+        'N': 'knight',
+        'B': 'bishop',
+        'K': 'king',
+        'Q': 'queen',
+        'P': 'pawn'
+      }
     }
     this.state = {
       turn: 'Whites',
@@ -117,7 +116,7 @@ class App extends React.Component {
       self.setState(state => {
         let situationCopy = self.copySituation(state.situation);
         self.findSquare(situationCopy, move.from).piece = null;
-        const movedPiece = `${self.turnMap[move.side]}${self.piecesMap[move.piece]}`;
+        const movedPiece = `${self.board.turnMap[move.side]}${self.board.piecesMap[move.piece]}`;
         self.findSquare(situationCopy, move.to).piece = movedPiece;
         let movesHistoryCopy = self.copyMovesHistory(state.movesHistory);
         movesHistoryCopy.push({id: `${move.id}`, situation: situationCopy});
@@ -162,7 +161,8 @@ class App extends React.Component {
                situation={this.state.situation}
                movesHistory={this.state.movesHistory}
                updateSituationByMoveId={this.updateSituationByMoveId}
-               loadSessionFromArchive={this.loadSessionFromArchive} />
+               loadSessionFromArchive={this.loadSessionFromArchive}
+               testRun={false} />
       </div>
     );
   }
