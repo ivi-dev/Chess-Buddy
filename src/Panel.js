@@ -30,7 +30,7 @@ class Panel extends React.Component {
             confirm: true
         }
         this.updateNotations = this.updateNotations.bind(this);
-        this.parseNotationsList = this.parseNotationsList.bind(this);
+        this.parseNotations = this.parseNotations.bind(this);
         this.toggleSessionsPanel = this.toggleSessionsPanel.bind(this);
         this.toggleSaveSessionPanel = this.toggleSaveSessionPanel.bind(this);
         this.updateSessionName = this.updateSessionName.bind(this);
@@ -88,7 +88,7 @@ class Panel extends React.Component {
                 to: (split[3] + split[4]).toUpperCase()};
     }
 
-    parseNotationsList(event) {
+    parseNotations(event) {
         event.preventDefault();
         if (this.state.notations.length > 0) {
             const notations = this.state.notations.trim().split(/\n/);
@@ -212,7 +212,7 @@ class Panel extends React.Component {
             <aside id="Panel">
                 <NotationsInput notations={this.state.notations} 
                                 updateNotations={this.updateNotations} 
-                                parseNotationsList={this.parseNotationsList} />
+                                parseNotations={this.parseNotations} />
                 {this.state.notaitionsError && <div id="Error">{this.state.notaitionsError}</div>}
                 {this.state.moves.length !== 0 && <h3>Session History</h3>}
                 <MovesHistory moves={this.state.moves} 

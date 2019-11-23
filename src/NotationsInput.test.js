@@ -7,11 +7,11 @@ configure({ adapter: new Adapter() });
 
 let input;
 let notations = '1 2';
-const parseNotationsList = jest.fn(() => notations = '');
+const parseNotations = jest.fn(() => notations = '');
 const updateNotations = jest.fn(() => notations = '1 2 3');
 
 input = shallow(<NotationsInput notations={notations} 
-                        parseNotationsList={parseNotationsList} 
+                        parseNotations={parseNotations} 
                         updateNotations={updateNotations} />);
 
 test('Renders #Input', () => {

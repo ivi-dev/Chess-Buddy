@@ -4,7 +4,7 @@ import './NotationsInput.css';
 
 function NotationsInput(props) {
     return (
-        <form id="Input" onSubmit={props.parseNotationsList}> 
+        <form id="Input" onSubmit={props.parseNotations}> 
             <textarea placeholder="Place notations here..." 
                       value={props.notations} 
                       onChange={props.updateNotations} 
