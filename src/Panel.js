@@ -137,7 +137,8 @@ class Panel extends React.Component {
     }
 
     toggleSaveSessionPanel(event) {
-        event.preventDefault();
+        if (event)
+            event.preventDefault();
         this.setState(state => ({panels: {...state.panels, saveSessionPanel: {visible: !state.panels.saveSessionPanel.visible}}, dbError: ''}));
     }
 
@@ -200,7 +201,7 @@ class Panel extends React.Component {
     }
 
     updateMoves(moves) {
-        this.setState({moves: moves, panels: {sessionsPanel: {visible: false}}});
+        this.setState(state => ({moves: moves, panels: {...state.panels, sessionsPanel: {visible: false}}}));
     }
 
     deleteSession(title) {

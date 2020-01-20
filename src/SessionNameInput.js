@@ -1,7 +1,7 @@
 import React from 'react';
 import './SessionNameInput.css';
 
-function SaveSessionsPanel(props) {
+function SessionNameInput(props) {
     return (
         <section id="SessionNameInput" className={props.visible ? 'visible' : null}>
             <form onSubmit={props.saveSession}>
@@ -23,4 +23,4 @@ function SaveSessionsPanel(props) {
     );
 }
 
-export default SaveSessionsPanel;
+export default SessionNameInput;
